@@ -1,0 +1,36 @@
+schema: spec-driven
+
+context: |
+  Language: English. Keep artifacts, structural headings, and SHALL/MUST keywords in English.
+  Product: Sauris, an open-source, self-hosted personal cloud for people and AI agents.
+  Stage: bootstrap. Only Go executable help/version output is implemented.
+  Repository: one Go module, github.com/saurlax/sauris, Go 1.26+, multiple packages.
+  Entrypoints: cmd/sauris, cmd/sauris-server, cmd/sauris-agent.
+  Read AGENTS.md and docs/architecture.md for project constraints and planned scope.
+  The control plane must run independently of Kubernetes.
+  Web console, CLI, HTTP API, and MCP share core services, authorization, and operation semantics.
+  Domain and pure planning packages must not depend on backend SDKs or transport frameworks.
+  Separate backend providers from connection transports; advertise backend-specific capabilities.
+  Compute and networking have independent lifecycles joined through service endpoints.
+  Flow: Intent -> Observe -> Plan -> Execute -> Observe.
+  Distinguish durable resources, change plans, and execution operations.
+  Persist platform intent and relationships; providers report observed runtime state.
+  Preserve external resource ownership; discovery does not imply adoption.
+  Reuse existing container runtimes and networking tools. Start with a Docker vertical slice.
+  Do not require a model provider for core operation or blanket manual approval for all changes.
+
+rules:
+  proposal:
+    - State the user problem, scope, non-goals, and affected interfaces/providers.
+    - Distinguish implemented behavior from proposed capabilities.
+  specs:
+    - Use testable SHALL requirements and Given/When/Then scenarios.
+    - State unsupported backend behavior and authorization boundaries where relevant.
+    - Do not imply Kubernetes, Docker, or a model service is universally required.
+  design:
+    - Explain ownership, persistence, credentials, and provider/transport boundaries when affected.
+    - Cover idempotency, concurrency, partial failure, and recovery for mutating workflows.
+    - Describe CLI and MCP behavior alongside API behavior when applicable.
+  tasks:
+    - Prefer small vertical slices with observable completion criteria.
+    - Include appropriate verification and documentation; avoid unrelated infrastructure work.
